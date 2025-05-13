@@ -111,7 +111,7 @@ export default function Home() {
   function handleTouchMove(e: React.TouchEvent) {
     setTouchEndX(e.touches[0].clientX);
   }
-  function handleTouchEnd(_: unknown, colorsLength: number) {
+  function handleTouchEnd(colorsLength: number) {
     if (touchStartX !== null && touchEndX !== null) {
       const diff = touchStartX - touchEndX;
       if (Math.abs(diff) > 30) { // só considera swipe se for maior que 30px
@@ -715,7 +715,7 @@ export default function Home() {
                   }}
                   onTouchStart={e => handleTouchStart(e, prod.id)}
                   onTouchMove={handleTouchMove}
-                  onTouchEnd={() => handleTouchEnd(prod.id, prod.colors.length)}
+                  onTouchEnd={() => handleTouchEnd(prod.colors.length)}
                 >
                   {Array.from({ length: Math.min(4, prod.colors.length) }).map((_, i) => {
                     const idx = (colorStartIndexes[prod.id] ?? 0) + i;
@@ -866,7 +866,7 @@ export default function Home() {
                     }}
                     onTouchStart={e => handleTouchStart(e, prod.id)}
                     onTouchMove={handleTouchMove}
-                    onTouchEnd={() => handleTouchEnd(prod.id, prod.colors.length)}
+                    onTouchEnd={() => handleTouchEnd(prod.colors.length)}
                   >
                     {Array.from({ length: Math.min(4, prod.colors.length) }).map((_, i) => {
                       const idx = (colorStartIndexes[prod.id] ?? 0) + i;
