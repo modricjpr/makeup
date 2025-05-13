@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import products from '../../data/products';
 import { useCart } from '../../context/CartContext';
 import Cart from './Cart';
-import Link from 'next/link';
 
 export default function Home() {
   const [showCart, setShowCart] = useState(false);
@@ -23,12 +22,6 @@ export default function Home() {
 
   // Lista de marcas únicas
   const brands = Array.from(new Set(products.map(p => p.brand)));
-  const brandSlugs = {
-    'Ruby Rose': 'ruby-rose',
-    'Melu': 'melu',
-    'Mari Maria Makeup': 'mari-maria-makeup',
-    'Bruna Tavares': 'bruna-tavares',
-  };
 
   const [selectedColors, setSelectedColors] = useState<Record<string, string>>({});
   const [carouselIndexes, setCarouselIndexes] = useState<Record<string, number>>({});

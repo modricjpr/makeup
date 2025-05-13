@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useCart } from '../../../context/CartContext';
-import { useRouter } from 'next/navigation';
 
 // Adicionar Montserrat via Google Fonts
 if (typeof window !== 'undefined') {
@@ -55,15 +54,14 @@ function isValidCPF(cpf) {
 }
 
 export default function Checkout() {
-  const { cart, userInfo, setUserInfo, clearCart, shippingInfo, updateShippingInfo } = useCart();
+  const { cart, userInfo, setUserInfo, shippingInfo, updateShippingInfo } = useCart();
   const [mensagem, setMensagem] = useState('');
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('pix-blackcat'); // Apenas Blackcat
-  const [pixData, setPixData] = useState(null);
+  const [pixData] = useState(null);
   const [timeLeft, setTimeLeft] = useState(null);
   const [pixBlackcatData, setPixBlackcatData] = useState(null);
-  const router = useRouter();
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const totalComFrete = total + (shippingInfo.freteGratis ? 0 : shippingInfo.valorFrete);
