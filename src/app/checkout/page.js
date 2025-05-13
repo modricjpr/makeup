@@ -132,7 +132,7 @@ export default function Checkout() {
 
     const camposFaltantes = Object.entries(camposObrigatorios)
       .filter(([campo]) => !userInfo[campo])
-      .map(([_, label]) => label);
+      .map(([, label]) => label);
 
     if (camposFaltantes.length > 0) {
       setMensagem(`Por favor, preencha os seguintes campos: ${camposFaltantes.join(', ')}`);
