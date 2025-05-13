@@ -20,12 +20,8 @@ export default function Home() {
   // Timer regressivo de 15 minutos
   const [timer, setTimer] = useState(15 * 60); // 15 minutos em segundos
 
-  // Lista de marcas únicas
-  const brands = Array.from(new Set(products.map(p => p.brand)));
-
   const [selectedColors, setSelectedColors] = useState<Record<string, string>>({});
   const [carouselIndexes, setCarouselIndexes] = useState<Record<string, number>>({});
-  const [colorCarouselIndexes, setColorCarouselIndexes] = useState<Record<string, number>>({});
   // Adicionar estado para o índice de início do carrossel de cores
   const [colorStartIndexes, setColorStartIndexes] = useState<Record<string, number>>({});
   // Adicionar estados auxiliares para animação do carrossel de cores
@@ -92,17 +88,17 @@ export default function Home() {
   }
 
   // Função para rolar o carrossel de cores com animação
-  function animateColorCarousel(prodId: string, direction: 'left' | 'right', colorsLength: number) {
-    setColorCarouselDirection(dir => ({ ...dir, [prodId]: direction }));
-    setColorCarouselAnimating(anim => ({ ...anim, [prodId]: true }));
+  function animateColorCarousel(_prodId: string, direction: 'left' | 'right', colorsLength: number) {
+    setColorCarouselDirection(dir => ({ ...dir, [_prodId]: direction }));
+    setColorCarouselAnimating(anim => ({ ...anim, [_prodId]: true }));
     setTimeout(() => {
-      setColorCarouselAnimating(anim => ({ ...anim, [prodId]: false }));
-      setColorCarouselDirection(dir => ({ ...dir, [prodId]: null }));
+      setColorCarouselAnimating(anim => ({ ...anim, [_prodId]: false }));
+      setColorCarouselDirection(dir => ({ ...dir, [_prodId]: null }));
       setColorStartIndexes(idx => ({
         ...idx,
-        [prodId]: direction === 'left'
-          ? ((idx[prodId] ?? 0) - 1 + colorsLength) % colorsLength
-          : ((idx[prodId] ?? 0) + 1) % colorsLength
+        [_prodId]: direction === 'left'
+          ? ((idx[_prodId] ?? 0) - 1 + colorsLength) % colorsLength
+          : ((idx[_prodId] ?? 0) + 1) % colorsLength
       }));
     }, 300); // 300ms igual ao transition
   }
@@ -790,7 +786,7 @@ export default function Home() {
                 let image = prod.image;
                 if (prod.colors && selectedColors[prod.id]) {
                   const cor = prod.colors.find(c => c.name === selectedColors[prod.id]);
-                  if (cor && (cor as any).image) image = (cor as any).image;
+                  if (cor && (cor as { image?: string }).image) image = (cor as { image?: string }).image as string;
                 }
                 addToCart(prod.colors ? { ...prod, selectedColor: selectedColors[prod.id], image } : prod);
                 setToast(`${prod.name} adicionado ao carrinho!`);
@@ -933,7 +929,7 @@ export default function Home() {
                   let image = prod.image;
                   if (prod.colors && selectedColors[prod.id]) {
                     const cor = prod.colors.find(c => c.name === selectedColors[prod.id]);
-                    if (cor && (cor as any).image) image = (cor as any).image;
+                    if (cor && (cor as { image?: string }).image) image = (cor as { image?: string }).image as string;
                   }
                   addToCart(prod.colors ? { ...prod, selectedColor: selectedColors[prod.id], image } : prod);
                   setToast(`${prod.name} adicionado ao carrinho!`);
