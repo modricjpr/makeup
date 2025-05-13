@@ -60,7 +60,6 @@ export default function Checkout() {
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('pix-blackcat'); // Apenas Blackcat
   const [pixData] = useState(null);
-  const [timeLeft, setTimeLeft] = useState(null);
   const [pixBlackcatData, setPixBlackcatData] = useState(null);
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -77,12 +76,8 @@ export default function Checkout() {
         
         if (distance <= 0) {
           clearInterval(timer);
-          setTimeLeft('Expirado');
           return;
         }
-        
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
       }, 1000);
     }
     

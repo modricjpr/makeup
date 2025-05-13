@@ -111,16 +111,16 @@ export default function Home() {
   function handleTouchMove(e: React.TouchEvent) {
     setTouchEndX(e.touches[0].clientX);
   }
-  function handleTouchEnd(prodId: string, colorsLength: number) {
+  function handleTouchEnd(_: any, colorsLength: number) {
     if (touchStartX !== null && touchEndX !== null) {
       const diff = touchStartX - touchEndX;
       if (Math.abs(diff) > 30) { // só considera swipe se for maior que 30px
         if (diff > 0) {
           // Swipe para a esquerda (próxima cor)
-          animateColorCarousel(prodId, 'right', colorsLength);
+          animateColorCarousel('', 'right', colorsLength);
         } else {
           // Swipe para a direita (cor anterior)
-          animateColorCarousel(prodId, 'left', colorsLength);
+          animateColorCarousel('', 'left', colorsLength);
         }
       }
     }
